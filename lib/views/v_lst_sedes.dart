@@ -71,17 +71,19 @@ class _LstSedesState extends State<LstSedes> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => FormularioSede(
-                      sede: Sede(
-                        idSede: p.idSede,
-                        nombre: p.nombre,
-                        direccion: p.direccion,
-                        estado: p.estado,
-                        fechaCreacion: p.fechaCreacion,
-                        codigoPostal: p.codigoPostal,
-                        pais: p.pais,
-                      ),
-                    )),
+              builder: (context) => FormularioSede(
+                sede: Sede(
+                  idSede: p.idSede,
+                  nombre: p.nombre,
+                  direccion: p.direccion,
+                  estado: p.estado,
+                  fechaCreacion: p.fechaCreacion,
+                  fechaRegistro: p.fechaRegistro,
+                  codigoPostal: p.codigoPostal,
+                  pais: p.pais,
+                ),
+              ),
+            ),
           );
         },
       ));

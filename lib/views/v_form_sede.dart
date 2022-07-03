@@ -3,6 +3,7 @@ import 'package:dawii_grupo1_domingo/models/sede.dart';
 import 'package:dawii_grupo1_domingo/services/pais/paisService.dart';
 import 'package:dawii_grupo1_domingo/services/sede/sedeService.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:toast/toast.dart';
 
 class FormularioSede extends StatefulWidget {
@@ -23,13 +24,25 @@ class _FormularioSedeState extends State<FormularioSede> {
   final TextEditingController codPostController = TextEditingController();
   var paisSeleccionado = 0;
   var estadoSeleccionado = 0;
+  var fecCre = '';
+  var fecReg = '';
+  var idSede = 0;
 
   @override
   void initState() {
     if (widget.sede != null) {
+      idSede = widget.sede!.idSede!;
       nomController.text = widget.sede!.nombre;
       direcController.text = widget.sede!.direccion;
-      print(widget.sede!.fechaCreacion);
+      var formatFecCre = widget.sede!.fechaCreacion;
+      var formatterFecCre = DateFormat('yyyy-MM-dd');
+      fecCre = formatterFecCre.format(formatFecCre);
+      // print("fe.CRE: ${fecCre}");
+      fechaController.text = fecCre;
+      var formatFecReg = widget.sede!.fechaRegistro;
+      var formatterFecReg = DateFormat('yyyy-MM-dd hh:mm:ss');
+      fecReg = formatterFecReg.format(formatFecReg!);
+      // print("fe.REG: ${fecReg}");
       codPostController.text = widget.sede!.codigoPostal;
       paisSeleccionado = widget.sede!.pais.idPais;
       estadoSeleccionado = widget.sede!.estado;
@@ -194,6 +207,9 @@ class _FormularioSedeState extends State<FormularioSede> {
                     return;
                   }
                   if (widget.sede != null) {
+                    formValues['idSede'] = idSede;
+                    formValues['fechaRegistro'] = fecReg;
+                    // print(formValues);
                     actualizarSede(formValues)
                         .then((resp) => {
                               Toast.show(

@@ -10,10 +10,12 @@ Future<List<Sede>> listarSedes() async {
   List<Sede> decoSedes = listaSedeFromJson(response.body);
   for (var i in decoSedes) {
     lstSedes.add(Sede(
+      idSede: i.idSede,
       nombre: i.nombre,
       direccion: i.direccion,
       estado: i.estado,
       fechaCreacion: i.fechaCreacion,
+      fechaRegistro: i.fechaRegistro,
       codigoPostal: i.codigoPostal,
       pais: i.pais,
     ));
