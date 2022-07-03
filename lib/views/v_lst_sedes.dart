@@ -2,6 +2,7 @@ import 'package:dawii_grupo1_domingo/models/sede.dart';
 import 'package:dawii_grupo1_domingo/services/sede/sedeService.dart';
 import 'package:dawii_grupo1_domingo/views/screens.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 class LstSedes extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _LstSedesState extends State<LstSedes> {
 
   @override
   Widget build(BuildContext context) {
+    ToastContext().init(context);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -86,13 +88,35 @@ class _LstSedesState extends State<LstSedes> {
             ),
           );
         },
+        trailing: IconButton(
+          icon: const Icon(Icons.delete),
+          color: Colors.red,
+          onPressed: () {
+            eliminarSede(p.idSede!).then((resp) {
+              Toast.show(
+                resp,
+                duration: Toast.lengthLong,
+                gravity: Toast.bottom,
+                backgroundColor: Colors.green,
+                textStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                ),
+              );
+            }).whenComplete(
+              () {
+                onRefresh();
+              },
+            );
+          },
+        ),
       ));
     }
     return sedes;
   }
 
   Future<void> onRefresh() async {
-    await Future.delayed(const Duration(seconds: 4))
+    await Future.delayed(const Duration(seconds: 2))
         .whenComplete(() => lstSedes = listarSedes());
     setState(() {});
   }

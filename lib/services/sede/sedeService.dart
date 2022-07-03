@@ -62,3 +62,22 @@ Future<String> actualizarSede(Map sede) async {
   }
   return msg;
 }
+
+Future<String> eliminarSede(int idSede) async {
+  String msg = '';
+  try {
+    Uri ruta = Uri.parse(RUTA + '/sede/eliminar/$idSede');
+    // var body = sedeToJsonR(sede);
+    http.Response response = await http.delete(
+      ruta,
+      headers: HEARDERS,
+    );
+    Map msgdec = jsonDecode(response.body);
+    msg = msgdec["msg"];
+    return msg;
+  } catch (e) {
+    // ignore: avoid_print
+    print('Excepcion: $e - ' + msg);
+  }
+  return msg;
+}
