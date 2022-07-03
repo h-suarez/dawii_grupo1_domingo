@@ -181,13 +181,19 @@ class _FormularioSedeState extends State<FormularioSede> {
               ),
               const SizedBox(height: 12),
               ElevatedButton(
-                child: const SizedBox(
+                child: SizedBox(
                   width: double.infinity,
-                  child: Text(
-                    'GUARDAR',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20),
-                  ),
+                  child: widget.sede != null
+                      ? const Text(
+                          'ACTUALIZAR',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 20),
+                        )
+                      : const Text(
+                          'GUARDAR',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 20),
+                        ),
                 ),
                 onPressed: () {
                   formValues['estado'] = estadoSeleccionado;
